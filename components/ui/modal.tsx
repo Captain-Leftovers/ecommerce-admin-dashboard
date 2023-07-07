@@ -6,7 +6,7 @@ import {
 	DialogDescription,
 	DialogHeader,
 	DialogTitle,
-} from './dialog'
+} from '@/components/ui/dialog'
 
 type modalProps = {
 	title: string
@@ -16,7 +16,7 @@ type modalProps = {
 	children?: React.ReactNode
 }
 
-export function modal({
+export function Modal({
 	title,
 	description,
 	isOpen,
@@ -36,9 +36,7 @@ export function modal({
 					<DialogTitle>{title}</DialogTitle>
 					<DialogDescription>{description}</DialogDescription>
 				</DialogHeader>
-                <div>
-                    {children}
-                </div>
+				<div>{children}</div>
 			</DialogContent>
 		</Dialog>
 	)
