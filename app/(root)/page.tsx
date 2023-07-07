@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
+import { UserButton } from '@clerk/nextjs'
 
-export default function Home() {
-  return (
-   <div className="flex justify-center items-center h-full" >
-    <Button size="lg" variant={"destructive"} >Click me</Button>
-   </div>
-  )
+export default function RootPage() {
+	return (
+		<div className="p-4">
+			<UserButton afterSignOutUrl="/" />
+		</div>
+	)
 }
