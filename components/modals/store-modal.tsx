@@ -42,6 +42,8 @@ export const StoreModal = () => {
 
 			const response = await axios.post('/api/stores', values)
 
+			//TODO : handle the response after
+
 			toast.success('Store created successfully')
 		} catch (error) {
 			toast.error("Something went wrong, we couldn't create your store")

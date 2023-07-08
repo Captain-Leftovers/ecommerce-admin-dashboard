@@ -22,7 +22,7 @@ export async function POST(req: Request) {
 
         const store = await prismaDB.store.create({
             data:{
-                useId: userId,
+                userId: userId,
                 name: name
             }
         })
