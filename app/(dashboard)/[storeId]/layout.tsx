@@ -26,5 +26,18 @@ export default async function DashboardLayout({
 		},
 	})
 
-	return <div>layout</div>
+    if (!store) {
+        redirect('/')
+    }
+
+
+
+	return (
+        <>
+            <div>
+                Put Navigation Bar here
+            </div>
+            {children}
+        </>
+    )
 }
