@@ -5,8 +5,8 @@ import * as z from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { useStoreModal } from '@/hooks/use-store-modal'
-import { Modal } from '@/components/ui/modal'
+import { useStoreModal } from '@/hooks/useStoreModal'
+import { Modal } from '@/components/ui/Modal'
 import {
 	Form,
 	FormControl,
@@ -14,9 +14,9 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+} from '@/components/ui/Form'
+import { Input } from '@/components/ui/Input'
+import { Button } from '@/components/ui/Button'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 
