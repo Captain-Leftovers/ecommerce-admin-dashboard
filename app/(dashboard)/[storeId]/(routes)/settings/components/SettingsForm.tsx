@@ -22,6 +22,7 @@ import { toast } from 'react-hot-toast'
 import axios from 'axios'
 import { useParams, useRouter } from 'next/navigation'
 import AlertModal from '@/components/modals/AlertModal'
+import ApiAlert from '@/components/ui/ApiAlert'
 
 type SettingsFormProps = {
 	initialData: Store
@@ -59,22 +60,20 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
 		}
 	}
 
-    const onDelete = async () => {
-        try {
-            setLoading(true)
-            await axios.delete(`/api/stores/${params.storeId}`)
-            router.refresh()
-            router.push('/')
-            toast.success('Store deleted')
-
-        } catch (error) {
-            toast.error('Make sure you have no products in your store first')
-            
-        } finally {
-            setLoading(false)   
-            setOpen(false)
-        }
-    }
+	const onDelete = async () => {
+		try {
+			setLoading(true)
+			await axios.delete(`/api/stores/${params.storeId}`)
+			router.refresh()
+			router.push('/')
+			toast.success('Store deleted')
+		} catch (error) {
+			toast.error('Make sure you have no products in your store first')
+		} finally {
+			setLoading(false)
+			setOpen(false)
+		}
+	}
 
 	return (
 		<>
@@ -133,6 +132,12 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
 					</Button>
 				</form>
 			</Form>
+			<Separator />
+			<ApiAlert
+				title="test"
+				description="test description"
+				variant="public"
+			/>
 		</>
 	)
 }
