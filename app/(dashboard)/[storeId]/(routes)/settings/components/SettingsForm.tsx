@@ -134,10 +134,11 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
 			</Form>
 			<Separator />
 			<ApiAlert
-				title="test"
+				title="NEXT_PUBLIC_API_URL"
 				description="test description"
 				variant="public"
 			/>
 		</>
 	)
 }
+
