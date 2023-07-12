@@ -15,9 +15,13 @@ import {
 	FormField,
 	FormItem,
 	FormLabel,
-    FormMessage,
+	FormMessage,
 } from '@/components/ui/Form'
 import { Input } from '@/components/ui/Input'
+import { toast } from 'react-hot-toast'
+import axios from 'axios'
+import { useParams, useRouter } from 'next/navigation'
+import AlertModal from '@/components/modals/AlertModal'
 
 type SettingsFormProps = {
 	initialData: Store
@@ -30,6 +34,9 @@ const formSchema = z.object({
 type SettingsFormValues = z.infer<typeof formSchema>
 
 export default function SettingsForm({ initialData }: SettingsFormProps) {
+	const params = useParams()
+	const router = useRouter()
+
 	const [open, setOpen] = useState(false)
 	const [loading, setLoading] = useState(false)
 
@@ -39,17 +46,55 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
 	})
 
 	const onSubmit = async (data: SettingsFormValues) => {
-		console.log(data)
+		try {
+			setLoading(true)
+
+			await axios.patch(`/api/stores/${params.storeId}`, data)
+			router.refresh()
+			toast.success('Store updated')
+		} catch (error) {
+			toast.error('Something went wrong')
+		} finally {
+			setLoading(false)
+		}
 	}
+
+    const onDelete = async () => {
+        try {
+            setLoading(true)
+            await axios.delete(`/api/stores/${params.storeId}`)
+            router.refresh()
+            router.push('/')
+            toast.success('Store deleted')
+
+        } catch (error) {
+            toast.error('Make sure you have no products in your store first')
+            
+        } finally {
+            setLoading(false)   
+            setOpen(false)
+        }
+    }
 
 	return (
 		<>
+			<AlertModal
+				isOpen={open}
+				onClose={() => setOpen(false)}
+				loading={loading}
+				onConfirm={onDelete}
+			/>
 			<div className="flex itmes-center justify-between">
 				<Heading
 					title="Settings"
 					description="Update your store settings"
 				/>
-				<Button variant="destructive" size="icon" onClick={() => {}}>
+				<Button
+					variant="destructive"
+					size="icon"
+					onClick={() => setOpen(true)}
+					disabled={loading}
+				>
 					<Trash className="h-4 w-4" />
 				</Button>
 			</div>
@@ -74,7 +119,7 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
 											{...field}
 										/>
 									</FormControl>
-                                <FormMessage/>
+									<FormMessage />
 								</FormItem>
 							)}
 						/>
