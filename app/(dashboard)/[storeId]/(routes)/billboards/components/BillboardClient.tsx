@@ -4,8 +4,13 @@ import { Button } from '@/components/ui/Button'
 import Heading from '@/components/ui/Heading'
 import { Separator } from '@/components/ui/Separator'
 import { Plus } from 'lucide-react'
+import { useParams, useRouter } from 'next/navigation'
 
 export default function BillboardClient() {
+
+    const router = useRouter()
+    const params = useParams()
+
 	return (
 		<>
 			<div className="flex items-center justify-between ">
@@ -13,7 +18,7 @@ export default function BillboardClient() {
 					title="Billboards (0)"
 					description="Manage your store billboards."
 				/>
-				<Button>
+				<Button onClick={() => {router.push(`/${params.storeId}/billboards/new`)}} >
 					<Plus className="mr-2 h-4 w-4" />
 					Add New
 				</Button>
