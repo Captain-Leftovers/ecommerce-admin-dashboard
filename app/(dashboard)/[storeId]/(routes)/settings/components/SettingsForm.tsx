@@ -23,6 +23,7 @@ import axios from 'axios'
 import { useParams, useRouter } from 'next/navigation'
 import AlertModal from '@/components/modals/AlertModal'
 import ApiAlert from '@/components/ui/ApiAlert'
+import useOrigin from '@/hooks/useOrigin'
 
 type SettingsFormProps = {
 	initialData: Store
@@ -35,6 +36,7 @@ const formSchema = z.object({
 type SettingsFormValues = z.infer<typeof formSchema>
 
 export default function SettingsForm({ initialData }: SettingsFormProps) {
+	const origin = useOrigin()
 	const params = useParams()
 	const router = useRouter()
 
@@ -135,7 +137,7 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
 			<Separator />
 			<ApiAlert
 				title="NEXT_PUBLIC_API_URL"
-				description="test description"
+				description={`${origin}/api/${params.storeId}`}
 				variant="public"
 			/>
 		</>
