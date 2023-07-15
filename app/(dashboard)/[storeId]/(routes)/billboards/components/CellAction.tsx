@@ -92,4 +92,3 @@ export default function CellAction({ data }: CellActionProps) {
 	)
 }
 
-//TODO : 4 56 29
