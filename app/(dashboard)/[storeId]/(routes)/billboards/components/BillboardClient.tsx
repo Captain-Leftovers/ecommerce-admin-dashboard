@@ -5,26 +5,37 @@ import Heading from '@/components/ui/Heading'
 import { Separator } from '@/components/ui/Separator'
 import { Plus } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
+import { BillboardColumn, columns } from './Columns'
+import { DataTable } from '@/components/ui/DataTable'
 
-export default function BillboardClient() {
+type BillboardClientProps = {
+	data: BillboardColumn[]
+}
 
-    const router = useRouter()
-    const params = useParams()
+export default function BillboardClient({ data }: BillboardClientProps) {
+	const router = useRouter()
+	const params = useParams()
 
 	return (
 		<>
 			<div className="flex items-center justify-between ">
 				<Heading
-					title="Billboards (0)"
+					title={`Billboards (${data.length})`}
 					description="Manage your store billboards."
 				/>
-				<Button onClick={() => {router.push(`/${params.storeId}/billboards/new`)}} >
+				<Button
+					onClick={() => {
+						router.push(`/${params.storeId}/billboards/new`)
+					}}
+				>
 					<Plus className="mr-2 h-4 w-4" />
 					Add New
 				</Button>
 			</div>
 
 			<Separator />
+
+			<DataTable columns={columns} data={data} searchKey="label" />
 		</>
 	)
 }

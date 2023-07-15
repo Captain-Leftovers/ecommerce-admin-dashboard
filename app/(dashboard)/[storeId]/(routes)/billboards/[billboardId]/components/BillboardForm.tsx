@@ -22,7 +22,6 @@ import { toast } from 'react-hot-toast'
 import axios from 'axios'
 import { useParams, useRouter } from 'next/navigation'
 import AlertModal from '@/components/modals/AlertModal'
-import useOrigin from '@/hooks/useOrigin'
 import ImageUpload from '@/components/ui/ImageUpload'
 
 const formSchema = z.object({
@@ -37,7 +36,6 @@ type BillboardFormProps = {
 }
 
 export default function BillboardForm({ initialData }: BillboardFormProps) {
-	const origin = useOrigin()
 	const params = useParams()
 	const router = useRouter()
 
@@ -88,7 +86,7 @@ export default function BillboardForm({ initialData }: BillboardFormProps) {
 				`/api/${params.storeId}/billboards/${params.billboardId}`
 			)
 			router.refresh()
-			router.push('/')
+			router.push(`/${params.storeId}/billboards`)
 			toast.success('Billboard deleted')
 		} catch (error) {
 			toast.error(
@@ -174,7 +172,6 @@ export default function BillboardForm({ initialData }: BillboardFormProps) {
 					</Button>
 				</form>
 			</Form>
-			<Separator />
 		</>
 	)
 }
