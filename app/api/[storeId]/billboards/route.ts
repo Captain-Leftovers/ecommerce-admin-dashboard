@@ -35,7 +35,7 @@ export async function POST(
 		})
 
 		if (!storeByUserId) {
-			return new NextResponse('Unauthorized', { status: 401 })
+			return new NextResponse('Unauthorized', { status: 403 })
 		}
 
 		const billboard = await prismaDB.billboard.create({
@@ -55,8 +55,7 @@ export async function POST(
 
 export async function GET(
 	req: Request,
-	{ params }: { params: { storeId: string } }
-) {
+	{ params }: { params: { storeId: string } }) {
 	try {
 		if (!params.storeId) {
 			return new NextResponse('StoreId is required', { status: 400 })
@@ -74,3 +73,7 @@ export async function GET(
 		return new NextResponse('Internal Server Error', { status: 500 })
 	}
 }
+
+
+
+//TODO : remember if you have error somewhere that params are the second argument of the function thats why we need re:Request as the first argument
