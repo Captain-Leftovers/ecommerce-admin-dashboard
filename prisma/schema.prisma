@@ -18,16 +18,35 @@ model Store {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   billboard Billboard[] @relation("StoreToBillboard")
+  category  Category[]  @relation("StoreToCategory")
 }
 
 model Billboard {
-  id        String   @id @default(uuid())
+  id        String     @id @default(uuid())
   storeId   String
-  store     Store    @relation("StoreToBillboard", fields: [storeId], references: [id])
+  store     Store      @relation("StoreToBillboard", fields: [storeId], references: [id])
   label     String
   imageUrl  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  category  Category[] @relation("BillboardToCategory")
 
   @@index([storeId])
 }
+
+model Category {
+  id          String    @id @default(uuid())
+  storeId     String
+  store       Store     @relation("StoreToCategory", fields: [storeId], references: [id])
+  billboardId String
+  billboard   Billboard @relation("BillboardToCategory", fields: [billboardId], references: [id])
+  name        String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([storeId])
+  @@index([billboardId])
+}
+
+// TODO : maybe make some names unique in their respective tables so you dont create billboards or ect with the same names
+
