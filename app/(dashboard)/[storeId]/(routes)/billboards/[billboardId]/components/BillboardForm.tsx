@@ -22,8 +22,8 @@ import { toast } from 'react-hot-toast'
 import axios from 'axios'
 import { useParams, useRouter } from 'next/navigation'
 import AlertModal from '@/components/modals/AlertModal'
-import ApiAlert from '@/components/ui/ApiAlert'
 import useOrigin from '@/hooks/useOrigin'
+import ImageUpload from '@/components/ui/ImageUpload'
 
 const formSchema = z.object({
 	label: z.string().min(1),
@@ -62,10 +62,17 @@ export default function BillboardForm({ initialData }: BillboardFormProps) {
 	const onSubmit = async (data: BillboardFormValues) => {
 		try {
 			setLoading(true)
+			if (initialData) {
+				await axios.patch(
+					`/api/${params.storeId}/billboards/${params.billboardId}`,
+					data
+				)
+			} else {
+				await axios.post(`/api/${params.storeId}/billboards`, data)
+			}
 
-			await axios.patch(`/api/stores/${params.storeId}`, data)
 			router.refresh()
-			toast.success('Store updated')
+			toast.success(toastMessage)
 		} catch (error) {
 			toast.error('Something went wrong')
 		} finally {
@@ -76,12 +83,16 @@ export default function BillboardForm({ initialData }: BillboardFormProps) {
 	const onDelete = async () => {
 		try {
 			setLoading(true)
-			await axios.delete(`/api/stores/${params.storeId}`)
+			await axios.delete(
+				`/api/${params.storeId}/billboards/${params.billboardId}`
+			)
 			router.refresh()
 			router.push('/')
-			toast.success('Store deleted')
+			toast.success('Billboard deleted')
 		} catch (error) {
-			toast.error('Make sure you have no products in your store first')
+			toast.error(
+				'Make sure you removed all categories  using this billboard before you proceed'
+			)
 		} finally {
 			setLoading(false)
 			setOpen(false)
@@ -116,6 +127,24 @@ export default function BillboardForm({ initialData }: BillboardFormProps) {
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="space-y-8 w-full"
 				>
+					<FormField
+						control={form.control}
+						name="imageUrl"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Background image</FormLabel>
+								<FormControl>
+									<ImageUpload
+										value={field.value ? [field.value] : []}
+										disabled={loading}
+										onChange={(url) => field.onChange(url)}
+										onRemove={() => field.onChange('')}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
 					<div className="grid grid-cols-3 gap-8">
 						<FormField
 							control={form.control}
@@ -148,5 +177,3 @@ export default function BillboardForm({ initialData }: BillboardFormProps) {
 		</>
 	)
 }
-
-
