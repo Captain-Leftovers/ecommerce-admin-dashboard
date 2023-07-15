@@ -42,7 +42,10 @@ type CategoryFormProps = {
 	billboards: Billboard[]
 }
 
-export default function CategoryForm({ initialData, billboards }: CategoryFormProps) {
+export default function CategoryForm({
+	initialData,
+	billboards,
+}: CategoryFormProps) {
 	const params = useParams()
 	const router = useRouter()
 
@@ -67,15 +70,15 @@ export default function CategoryForm({ initialData, billboards }: CategoryFormPr
 			setLoading(true)
 			if (initialData) {
 				await axios.patch(
-					`/api/${params.storeId}/billboards/${params.billboardId}`,
+					`/api/${params.storeId}/categories/${params.categoryId}`,
 					data
 				)
 			} else {
-				await axios.post(`/api/${params.storeId}/billboards`, data)
+				await axios.post(`/api/${params.storeId}/categories`, data)
 			}
 
 			router.refresh()
-			router.push(`/${params.storeId}/billboards`)
+			router.push(`/${params.storeId}/categories`)
 			toast.success(toastMessage)
 		} catch (error) {
 			toast.error('Something went wrong')
@@ -88,14 +91,14 @@ export default function CategoryForm({ initialData, billboards }: CategoryFormPr
 		try {
 			setLoading(true)
 			await axios.delete(
-				`/api/${params.storeId}/billboards/${params.billboardId}`
+				`/api/${params.storeId}/categories/${params.categoryId}`
 			)
 			router.refresh()
-			router.push(`/${params.storeId}/billboards`)
-			toast.success('Billboard deleted')
+			router.push(`/${params.storeId}/categories`)
+			toast.success('Category deleted')
 		} catch (error) {
 			toast.error(
-				'Make sure you removed all categories  using this billboard before you proceed'
+				'Make sure you removed all products  using this category before you proceed'
 			)
 		} finally {
 			setLoading(false)
@@ -171,7 +174,10 @@ export default function CategoryForm({ initialData, billboards }: CategoryFormPr
 										</FormControl>
 										<SelectContent>
 											{billboards.map((billboard) => (
-												<SelectItem key={billboard.id} value={billboard.id} >
+												<SelectItem
+													key={billboard.id}
+													value={billboard.id}
+												>
 													{billboard.label}
 												</SelectItem>
 											))}
