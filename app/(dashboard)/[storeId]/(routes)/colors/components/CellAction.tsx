@@ -7,7 +7,7 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu'
-import { SizeColumn } from './Columns'
+import { ColorColumn } from './Columns'
 import { Button } from '@/components/ui/Button'
 import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react'
 import { toast } from 'react-hot-toast'
@@ -17,7 +17,7 @@ import axios from 'axios'
 import AlertModal from '@/components/modals/AlertModal'
 
 type CellActionProps = {
-	data: SizeColumn
+	data: ColorColumn
 }
 export default function CellAction({ data }: CellActionProps) {
 	const [loading, setLoading] = useState(false)
@@ -27,18 +27,18 @@ export default function CellAction({ data }: CellActionProps) {
 
 	const onCopy = (id: string) => {
 		navigator.clipboard.writeText(id)
-		toast.success('Size Id copied to the clipboard.')
+		toast.success('Color Id copied to the clipboard.')
 	}
 
 	const onDelete = async () => {
 		try {
 			setLoading(true)
-			await axios.delete(`/api/${params.storeId}/sizes/${data.id}`)
+			await axios.delete(`/api/${params.storeId}/colors/${data.id}`)
 			router.refresh()
-			toast.success('Size deleted')
+			toast.success('Color deleted')
 		} catch (error) {
 			toast.error(
-				'Make sure you removed all products  using this size before you proceed'
+				'Make sure you removed all products  using this color before you proceed'
 			)
 		} finally {
 			setLoading(false)
@@ -74,7 +74,7 @@ export default function CellAction({ data }: CellActionProps) {
 
 					<DropdownMenuItem
 						onClick={() =>
-							router.push(`/${params.storeId}/sizes/${data.id}`)
+							router.push(`/${params.storeId}/colors/${data.id}`)
 						}
 					>
 						<Edit className="mr-2 h-4 w-4" />
