@@ -12,6 +12,7 @@ import { z } from 'zod'
 import {
 	Form,
 	FormControl,
+	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -30,6 +31,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/Select'
+import { Checkbox } from '@/components/ui/Checkbox'
 
 const formSchema = z.object({
 	name: z.string().min(1),
@@ -101,15 +103,15 @@ export default function BillboardForm({
 			setLoading(true)
 			if (initialData) {
 				await axios.patch(
-					`/api/${params.storeId}/billboards/${params.billboardId}`,
+					`/api/${params.storeId}/products/${params.productId}`,
 					data
 				)
 			} else {
-				await axios.post(`/api/${params.storeId}/billboards`, data)
+				await axios.post(`/api/${params.storeId}/products`, data)
 			}
 
 			router.refresh()
-			router.push(`/${params.storeId}/billboards`)
+			router.push(`/${params.storeId}/products`)
 			toast.success(toastMessage)
 		} catch (error) {
 			toast.error('Something went wrong')
@@ -122,15 +124,13 @@ export default function BillboardForm({
 		try {
 			setLoading(true)
 			await axios.delete(
-				`/api/${params.storeId}/billboards/${params.billboardId}`
+				`/api/${params.storeId}/products/${params.productId}`
 			)
 			router.refresh()
-			router.push(`/${params.storeId}/billboards`)
-			toast.success('Billboard deleted')
+			router.push(`/${params.storeId}/products`)
+			toast.success('Product deleted')
 		} catch (error) {
-			toast.error(
-				'Make sure you removed all categories  using this billboard before you proceed'
-			)
+			toast.error('Something went wrong.')
 		} finally {
 			setLoading(false)
 			setOpen(false)
@@ -238,7 +238,7 @@ export default function BillboardForm({
 							name="categoryId"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Billboard</FormLabel>
+									<FormLabel>Category</FormLabel>
 									<Select
 										disabled={loading}
 										onValueChange={field.onChange}
@@ -249,7 +249,7 @@ export default function BillboardForm({
 											<SelectTrigger>
 												<SelectValue
 													defaultValue={field.value}
-													placeholder="Select a billboard"
+													placeholder="Select a category"
 												/>
 											</SelectTrigger>
 										</FormControl>
@@ -265,6 +265,121 @@ export default function BillboardForm({
 										</SelectContent>
 									</Select>
 									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<FormField
+							control={form.control}
+							name="sizeId"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Size</FormLabel>
+									<Select
+										disabled={loading}
+										onValueChange={field.onChange}
+										value={field.value}
+										defaultValue={field.value}
+									>
+										<FormControl>
+											<SelectTrigger>
+												<SelectValue
+													defaultValue={field.value}
+													placeholder="Select a size"
+												/>
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											{sizes.map((size) => (
+												<SelectItem
+													key={size.id}
+													value={size.id}
+												>
+													{size.name}
+												</SelectItem>
+											))}
+										</SelectContent>
+									</Select>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="colorId"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Color</FormLabel>
+									<Select
+										disabled={loading}
+										onValueChange={field.onChange}
+										value={field.value}
+										defaultValue={field.value}
+									>
+										<FormControl>
+											<SelectTrigger>
+												<SelectValue
+													defaultValue={field.value}
+													placeholder="Select a color"
+												/>
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											{colors.map((color) => (
+												<SelectItem
+													key={color.id}
+													value={color.id}
+												>
+													{color.name}
+												</SelectItem>
+											))}
+										</SelectContent>
+									</Select>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="isFeatured"
+							render={({ field }) => (
+								<FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+									<FormControl>
+										<Checkbox
+											checked={field.value}
+											//@ts-ignore
+											onCheckedChange={field.onChange}
+										/>
+									</FormControl>
+									<div className="space-y-1 leading-none">
+										<FormLabel>Featured</FormLabel>
+										<FormDescription>
+											The product will appear on the home
+											page
+										</FormDescription>
+									</div>
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="isArchived"
+							render={({ field }) => (
+								<FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+									<FormControl>
+										<Checkbox
+											checked={field.value}
+											//@ts-ignore
+											onCheckedChange={field.onChange}
+										/>
+									</FormControl>
+									<div className="space-y-1 leading-none">
+										<FormLabel>Archived</FormLabel>
+										<FormDescription>
+											The product will not appear anywhere
+											in the store.
+										</FormDescription>
+									</div>
 								</FormItem>
 							)}
 						/>
