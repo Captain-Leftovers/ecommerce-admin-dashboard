@@ -19,10 +19,7 @@ export default function OrderClient({ data }: OrderClientProps) {
 
 			<Separator />
 
-			<DataTable columns={columns} data={data} searchKey="label" />
-			<Heading title="API" description="API calls for Billboards" />
+			<DataTable columns={columns} data={data} searchKey="products" />
 		</>
 	)
 }
-
-
