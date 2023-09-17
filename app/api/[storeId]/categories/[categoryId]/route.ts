@@ -3,7 +3,7 @@ import { auth } from '@clerk/nextjs'
 import { NextResponse } from 'next/server'
 
 export async function PATCH(
-		req: Request,
+	req: Request,
 	{ params }: { params: { storeId: string; categoryId: string } }
 ) {
 	try {
@@ -99,7 +99,7 @@ export async function DELETE(
 }
 
 export async function GET(
-		req: Request,
+	req: Request,
 	{
 		params,
 	}: {
@@ -115,6 +115,9 @@ export async function GET(
 			where: {
 				id: params.categoryId,
 			},
+			include: {
+				billboard: true,
+			},
 		})
 
 		return NextResponse.json(category)
@@ -123,6 +126,3 @@ export async function GET(
 		return new NextResponse('Internal error', { status: 500 })
 	}
 }
-
-
- 
