@@ -1,3 +1,4 @@
+import getGraphRevenue from '@/actions/getGraphRevenue'
 import getSalesCount from '@/actions/getSalesCount'
 import getStockCount from '@/actions/getStockCount'
 import getTotalRevenue from '@/actions/getTotalRevenue'
@@ -19,6 +20,7 @@ export default async function DashboardPage({
 	params: { storeId },
 }: DashboardPageProps) {
 
+
 	const totalRevenue = await getTotalRevenue(storeId)
 
 	
@@ -26,6 +28,8 @@ export default async function DashboardPage({
 	
 	
 	const stockCount = await getStockCount(storeId)
+
+	const graphRevenue = await getGraphRevenue(storeId)
 
 	return (
 		<div className="flex-col ">
@@ -84,7 +88,7 @@ export default async function DashboardPage({
 						<CardTitle>Overview</CardTitle>
 					</CardHeader>
 					<CardContent className='pl-2'>
-						<Overview data={[]} />
+						<Overview data={graphRevenue} />
 					</CardContent>
 				</Card>
 			</div>

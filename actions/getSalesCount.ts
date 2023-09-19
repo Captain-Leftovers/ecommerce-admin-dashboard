@@ -6,10 +6,7 @@ export default async function getSalesCount(storeId: string) {
 			storeId,
 			isPaid: true,
 		},
-	
 	})
-
-	
 
 	return salesCount
 }
