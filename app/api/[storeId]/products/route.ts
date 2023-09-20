@@ -130,4 +130,3 @@ export async function GET(
 	}
 }
 
-//TODO : remember if you have error somewhere that params are the second argument of the function thats why we need re:Request as the first argument

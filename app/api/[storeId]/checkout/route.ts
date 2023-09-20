@@ -10,7 +10,7 @@ const corsHeaders = {
    
 }
 
-//TODO :  see whats the issue maybe stripe help
+
 
 export async function OPTIONS() {
 	return NextResponse.json({}, { headers: corsHeaders })

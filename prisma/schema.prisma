@@ -53,7 +53,7 @@ model Category {
   @@index([billboardId])
 }
 
-// TODO : maybe make some names unique in their respective tables so you dont create billboards or ect with the same names
+
 
 model Size {
   id        String    @id @default(uuid())
