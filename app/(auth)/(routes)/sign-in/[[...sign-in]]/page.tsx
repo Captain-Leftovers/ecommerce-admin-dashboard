@@ -1,5 +1,11 @@
 import { SignIn } from '@clerk/nextjs'
+import TestCredentials from './components/TestCredentials'
 
 export default function Page() {
-	return <SignIn />
+	return (
+		<>
+			<TestCredentials />
+			<SignIn />
+		</>
+	)
 }
