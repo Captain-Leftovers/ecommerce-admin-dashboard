@@ -12,13 +12,15 @@ export default function TestCredentials() {
 
 	return (
 		<div className="absolute bottom-9 sm:bottom-2 left-1/2 -translate-x-1/2 z-40 flex items-center justify-center gap-2 w-full animate-show ">
-			<p className=" absolute left-8 sm:left-[60px] text-center text-sm justify font-medium pr-1 whitespace-nowrap">Guest &#8594;</p>
+			<p className=" absolute left-8 sm:left-[60px] text-center text-black text-sm justify font-medium pr-1 whitespace-nowrap">
+				Guest &#8594;
+			</p>
 			<Button
 				onClick={copyEmail}
 				className="p-2 bg-[#103FEF] hover:bg-[#092ba5] active:scale-95 transform origin-center transition-transform"
 			>
 				<div className="flex items-center w-full">
-					<p className="pr-2">email</p>
+					<p className="pr-2 text-white">email</p>
 					<Copy size={12} />
 				</div>
 			</Button>
@@ -27,7 +29,7 @@ export default function TestCredentials() {
 				className=" p-2 bg-[#103FEF] hover:bg-[#092ba5] active:scale-95 transform origin-center transition-transform"
 			>
 				<div className="flex items-center w-full">
-					<p className="pr-4">pass</p>
+					<p className="pr-4 text-white">pass</p>
 					<Copy size={12} />
 				</div>
 			</Button>
