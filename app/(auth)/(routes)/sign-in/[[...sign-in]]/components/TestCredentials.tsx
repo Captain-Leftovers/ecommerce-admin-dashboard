@@ -21,7 +21,7 @@ export default function TestCredentials() {
 			>
 				<div className="flex items-center w-full">
 					<p className="pr-2 text-white">email</p>
-					<Copy size={12} />
+					<Copy size={12} color='white' />
 				</div>
 			</Button>
 			<Button
@@ -30,7 +30,7 @@ export default function TestCredentials() {
 			>
 				<div className="flex items-center w-full">
 					<p className="pr-4 text-white">pass</p>
-					<Copy size={12} />
+					<Copy size={12} color='white'/>
 				</div>
 			</Button>
 		</div>
