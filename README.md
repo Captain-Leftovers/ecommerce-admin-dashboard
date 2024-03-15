@@ -22,7 +22,7 @@
 
 <h3>Cloning the Repository</h3>
 
-<pre><code>git clone <repo URL> </code></pre>
+<pre><code>git clone https://github.com/Captain-Leftovers/ecommerce-admin-dashboard.git </code></pre>
 
 <h3>Installing Dependencies</h3>
 
