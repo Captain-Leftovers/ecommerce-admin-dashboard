@@ -14,3 +14,47 @@
     <li><strong>Authentication and Security:</strong> Leverages Clerk for authentication, ensuring secure access to the dashboard.</li>
 </ul>
 
+<h2>Prerequisites</h2>
+
+<p>Node version 14.x is required.</p>
+
+<h2>Getting Started</h2>
+
+<h3>Cloning the Repository</h3>
+
+<pre><code>git clone <repo URL> </code></pre>
+
+<h3>Installing Dependencies</h3>
+
+<pre><code>npm i</code></pre>
+
+<h3>Setting Up Environment Variables</h3>
+
+<p>Create a <code>.env</code> file at the root of your project and include the following configurations:</p>
+
+<pre><code>NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+DATABASE_URL=''
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=""
+STRIPE_API_KEY=
+FRONTEND_STORE_URL=http://localhost:3001
+STRIPE_WEBHOOK_SECRET=</code></pre>
+
+<h3>Connecting to PlanetScale and Pushing Prisma Schema</h3>
+
+<pre><code>npx prisma generate
+npx prisma db push</code></pre>
+
+<h3>Launching the Dashboard</h3>
+
+<pre><code>npm run dev</code></pre>
+
+<h2>Available Commands</h2>
+
+<ul>
+    <li><code>npm run dev</code>: Starts a development instance of the app.</li>
+</ul>
