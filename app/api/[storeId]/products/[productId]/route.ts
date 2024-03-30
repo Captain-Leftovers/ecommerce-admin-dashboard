@@ -82,9 +82,11 @@ export async function PATCH(
 			},
 			data: {
 				images: {
-					create: [
-						...images.map((image: { url: string }) => image),
-					],
+					createMany: {
+						data: [
+							...images.map((image: { url: string }) => image),
+						],
+					},
 				},
 			},
 		})
