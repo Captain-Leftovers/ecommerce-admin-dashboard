@@ -71,11 +71,9 @@ export async function POST(
 				colorId: colorId,
 				storeId: params.storeId,
 				images: {
-					createMany: {
-						data: [
+					create: [
 							...images.map((image: { url: string }) => image),
 						],
-					},
 				},
 			},
 		})
