@@ -60,6 +60,26 @@ export async function POST(
 			return new NextResponse('Unauthorized', { status: 403 })
 		}
 
+		// const product = await prismaDB.product.create({
+		// 	data: {
+		// 		price: price,
+		// 		name: name,
+		// 		isFeatured: isFeatured,
+		// 		isArchived: isArchived,
+		// 		categoryId: categoryId,
+		// 		sizeId: sizeId,
+		// 		colorId: colorId,
+		// 		storeId: params.storeId,
+		// 		images: {
+		// 			createMany: {
+		// 				data: [
+		// 					...images.map((image: { url: string }) => image),
+		// 				],
+		// 			},
+		// 		},
+		// 	},
+		// })
+		
 		const product = await prismaDB.product.create({
 			data: {
 				price: price,
@@ -70,15 +90,24 @@ export async function POST(
 				sizeId: sizeId,
 				colorId: colorId,
 				storeId: params.storeId,
-				images: {
-					createMany: {
-						data: [
-							...images.map((image: { url: string }) => image),
-						],
-					},
-				},
 			},
 		})
+
+		for (const image of images) {
+			await prismaDB.image.create({
+				data: {
+					productId: product.id,
+					url: image.url,
+				},
+			})
+		}
+
+
+		
+		
+
+
+
 
 		return NextResponse.json(product)
 	} catch (error) {

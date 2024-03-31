@@ -76,18 +76,40 @@ export async function PATCH(
 			},
 		})
 
-		const product = await prismaDB.product.update({
+		// const product = await prismaDB.product.update({
+		// 	where: {
+		// 		id: params.productId,
+		// 	},
+		// 	data: {
+		// 		images: {
+		// 			// TODO - Fix this createMany not available in sqlite
+		// 			createMany: {
+		// 				data: [
+		// 					...images.map((image: { url: string }) => image),
+		// 				],
+		// 			},
+		// 		},
+		// 	},
+		// })
+
+		for (const image of images) {
+			await prismaDB.image.create({
+				data: {
+					productId: params.productId,
+					url: image.url,
+				},
+			})
+		}
+
+		const product = await prismaDB.product.findUnique({
 			where: {
 				id: params.productId,
 			},
-			data: {
-				images: {
-					createMany: {
-						data: [
-							...images.map((image: { url: string }) => image),
-						],
-					},
-				},
+			include: {
+				images: true,
+				category: true,
+				size: true,
+				color: true,
 			},
 		})
 
